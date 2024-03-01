@@ -1,0 +1,80 @@
+<script>
+    // Define quiz questions and answers
+    const quizData = [
+      {
+        question: "What is the capital of France?",
+        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        correctAnswer: "Paris"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Mars", "Venus", "Jupiter", "Saturn"],
+        correctAnswer: "Mars"
+      },
+      {
+        question: "What is the largest mammal in the world?",
+        options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+        correctAnswer: "Blue Whale"
+      }
+    ];
+  
+    let currentQuestion = 0;
+    let score = 0;
+  
+    // Function to display the current question
+    function displayQuestion() {
+      const questionElement = document.getElementById('question');
+      const optionsElement = document.getElementById('options');
+      const currentQuizData = quizData[currentQuestion];
+  
+      questionElement.innerText = currentQuizData.question;
+  
+      optionsElement.innerHTML = "";
+      currentQuizData.options.forEach((option, index) => {
+        const li = document.createElement('li');
+        li.innerText = option;
+        li.addEventListener('click', function() {
+          selectOption(this);
+        });
+        optionsElement.appendChild(li);
+      });
+    }
+  
+    // Function to handle option selection
+    function selectOption(selectedOption) {
+      const selectedOptions = document.querySelectorAll('li');
+      selectedOptions.forEach(option => option.classList.remove('selected'));
+      selectedOption.classList.add('selected');
+    }
+  
+    // Function to check the selected answer
+    function checkAnswer() {
+      const selectedOption = document.querySelector('li.selected');
+      if (selectedOption) {
+        const selectedAnswer = selectedOption.innerText;
+        const currentQuizData = quizData[currentQuestion];
+  
+        if (selectedAnswer === currentQuizData.correctAnswer) {
+          score++;
+        }
+  
+        currentQuestion++;
+  
+        if (currentQuestion < quizData.length) {
+          displayQuestion();
+        } else {
+          showResult();
+        }
+      }
+    }
+  
+    // Function to show the final result
+    function showResult() {
+      const resultElement = document.getElementById('result');
+      resultElement.innerText = `Your Score: ${score} out of ${quizData.length}`;
+    }
+  
+    // Initial display
+    displayQuestion();
+  </script>
+  

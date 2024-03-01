@@ -1,0 +1,5 @@
+package com.mydata.service;
+
+public interface ContactService {
+
+}
